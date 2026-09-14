@@ -22,293 +22,8 @@ function format_tanggal($tanggal) {
     <title>Sistem Informasi Kesiswaan SMK NEGERI 1 MAJA</title>
     <!-- Font Awesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
-    <style>
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
-
-        html {
-            scroll-behavior: smooth;
-        }
-
-        body {
-            background-color: #f8fafc;
-            color: #334155;
-        }
-
-        /* Navbar Style */
-        .navbar {
-            position: fixed;
-            top: 0;
-            width: 100%;
-            background-color: #0f172a;
-            padding: 15px 5%;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.15);
-            z-index: 1000;
-        }
-
-        .navbar .logo {
-            color: #fff;
-            font-size: 1.1rem;
-            font-weight: bold;
-            letter-spacing: 0.5px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .nav-links {
-            list-style: none;
-            display: flex;
-            gap: 20px;
-        }
-
-        .nav-links a {
-            color: #cbd5e1;
-            text-decoration: none;
-            font-size: 0.9rem;
-            transition: color 0.3s;
-        }
-
-        .nav-links a:hover {
-            color: #38bdf8;
-        }
-
-        /* Hero Section */
-        .hero {
-            min-height: 55vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            padding: 110px 20px 50px;
-            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
-            color: #fff;
-        }
-
-        .hero h1 {
-            font-size: 2.2rem;
-            margin-bottom: 15px;
-        }
-
-        .hero p {
-            font-size: 1rem;
-            color: #94a3b8;
-            max-width: 650px;
-            margin-bottom: 25px;
-            line-height: 1.6;
-        }
-
-        .btn-cta {
-            background-color: #0284c7;
-            color: #fff;
-            padding: 10px 24px;
-            border-radius: 6px;
-            text-decoration: none;
-            font-weight: 600;
-            transition: background 0.3s;
-        }
-
-        .btn-cta:hover {
-            background-color: #0369a1;
-        }
-
-        /* Container Layout */
-        .container {
-            max-width: 1200px;
-            margin: 40px auto;
-            padding: 0 20px;
-        }
-
-        /* Section Kartu Statistik */
-        .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-            gap: 20px;
-            margin-bottom: 50px;
-        }
-
-        .stat-card {
-            background: #fff;
-            padding: 22px;
-            border-radius: 10px;
-            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);
-            border-top: 4px solid #0284c7;
-            text-align: center;
-        }
-
-        .stat-card h3 {
-            font-size: 2rem;
-            color: #0f172a;
-            margin-bottom: 5px;
-        }
-
-        .stat-card p {
-            color: #64748b;
-            font-size: 0.9rem;
-        }
-
-        /* Card Tabel Header Flex */
-        .card-table {
-            background: #fff;
-            border-radius: 8px;
-            padding: 25px;
-            margin-bottom: 50px;
-            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.08);
-        }
-
-        .card-header-flex {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 20px;
-            flex-wrap: wrap;
-            gap: 10px;
-        }
-
-        .card-table h2 {
-            font-size: 1.3rem;
-            color: #0f172a;
-            border-left: 4px solid #0284c7;
-            padding-left: 12px;
-        }
-
-        .btn-add {
-            background-color: #10b981;
-            color: #fff;
-            padding: 8px 16px;
-            border-radius: 5px;
-            text-decoration: none;
-            font-size: 0.85rem;
-            font-weight: 600;
-            transition: background 0.3s;
-        }
-
-        .btn-add:hover {
-            background-color: #059669;
-        }
-
-        .table-responsive {
-            overflow-x: auto;
-        }
-
-        /* Styling Table */
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            font-size: 0.88rem;
-        }
-
-        th {
-            background-color: #f1f5f9;
-            color: #334155;
-            text-align: left;
-            padding: 12px 14px;
-            font-weight: 600;
-            border-bottom: 2px solid #e2e8f0;
-        }
-
-        td {
-            padding: 12px 14px;
-            border-bottom: 1px solid #e2e8f0;
-            color: #475569;
-        }
-
-        tr:hover {
-            background-color: #f8fafc;
-        }
-
-        /* Action Buttons */
-        .btn-action {
-            display: inline-block;
-            padding: 5px 10px;
-            font-size: 0.78rem;
-            border-radius: 4px;
-            text-decoration: none;
-            font-weight: 500;
-        }
-
-        .btn-edit {
-            background-color: #eab308;
-            color: #fff;
-        }
-
-        .btn-edit:hover {
-            background-color: #ca8a04;
-        }
-
-        .btn-delete {
-            background-color: #ef4444;
-            color: #fff;
-        }
-
-        .btn-delete:hover {
-            background-color: #dc2626;
-        }
-
-        /* Badge Poin Pelanggaran */
-        .badge-poin {
-            background-color: #fee2e2;
-            color: #991b1b;
-            padding: 3px 8px;
-            border-radius: 12px;
-            font-weight: 600;
-            font-size: 0.8rem;
-        }
-
-        /* Informasi Khusus SMK (Grid 3 Kolom) */
-        .smk-info-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 25px;
-            margin-top: 30px;
-            margin-bottom: 40px;
-        }
-
-        .info-card {
-            background: #fff;
-            padding: 22px;
-            border-radius: 8px;
-            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);
-            border-left: 4px solid #0f172a;
-        }
-
-        .info-card h3 {
-            font-size: 1.05rem;
-            margin-bottom: 12px;
-            color: #0f172a;
-        }
-
-        .info-card ul {
-            list-style: none;
-            padding: 0;
-        }
-
-        .info-card li {
-            font-size: 0.85rem;
-            color: #475569;
-            margin-bottom: 8px;
-            padding-bottom: 6px;
-            border-bottom: 1px dashed #e2e8f0;
-            line-height: 1.5;
-        }
-
-        footer {
-            text-align: center;
-            padding: 20px;
-            background-color: #0f172a;
-            color: #cbd5e1;
-            font-size: 0.85rem;
-        }
-    </style>
+    <!-- External CSS -->
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
@@ -380,7 +95,7 @@ function format_tanggal($tanggal) {
                     </thead>
                     <tbody>
                         <?php if (empty($data_siswa)): ?>
-                            <tr><td colspan="9" style="text-align:center;">Belum ada data siswa.</td></tr>
+                            <tr><td colspan="9" class="text-center">Belum ada data siswa.</td></tr>
                         <?php else: ?>
                             <?php foreach ($data_siswa as $index => $siswa): ?>
                             <tr>
@@ -393,8 +108,8 @@ function format_tanggal($tanggal) {
                                 <td><?= htmlspecialchars($siswa['jurusan']); ?></td>
                                 <td><?= htmlspecialchars($siswa['no_hp']); ?></td>
                                 <td>
-                                    <a href="edit_siswa.php?id=<?= $siswa['id_siswa']; ?>" class="btn-action btn-edit"><i class="fa-solid fa-pen-to-square"></i> Edit</a>
-                                    <a href="hapus_siswa.php?id=<?= $siswa['id_siswa']; ?>" class="btn-action btn-delete" onclick="return confirm('Hapus data siswa ini?')"><i class="fa-solid fa-trash"></i> Hapus</a>
+                                    <a href="edit.php?type=siswa&id=<?= urlencode($siswa['id_siswa']); ?>" class="btn-action btn-edit"><i class="fa-solid fa-pen-to-square"></i> Edit</a>
+                                    <a href="hapus.php?type=siswa&id=<?= urlencode($siswa['id_siswa']); ?>" class="btn-action btn-delete btn-confirm-delete" data-message="Hapus data siswa ini?"><i class="fa-solid fa-trash"></i> Hapus</a>
                                 </td>
                             </tr>
                             <?php endforeach; ?>
@@ -408,7 +123,6 @@ function format_tanggal($tanggal) {
         <div class="card-table" id="data-ekskul">
             <div class="card-header-flex">
                 <h2>Data Ekstrakurikuler & Komunitas Keahlian</h2>
-                <a href="tambah_ekskul.php" class="btn-add"><i class="fa-solid fa-plus"></i> Tambah Ekskul</a>
             </div>
             <div class="table-responsive">
                 <table>
@@ -425,7 +139,7 @@ function format_tanggal($tanggal) {
                     </thead>
                     <tbody>
                         <?php if (empty($data_ekskul)): ?>
-                            <tr><td colspan="7" style="text-align:center;">Belum ada data ekstrakurikuler.</td></tr>
+                            <tr><td colspan="7" class="text-center">Belum ada data ekstrakurikuler.</td></tr>
                         <?php else: ?>
                             <?php foreach ($data_ekskul as $index => $ekskul): ?>
                             <tr>
@@ -436,8 +150,8 @@ function format_tanggal($tanggal) {
                                 <td><?= htmlspecialchars($ekskul['jadwal']); ?></td>
                                 <td><?= htmlspecialchars($ekskul['tempat']); ?></td>
                                 <td>
-                                    <a href="edit_ekskul.php?id=<?= $ekskul['id_ekstrakurikuler']; ?>" class="btn-action btn-edit"><i class="fa-solid fa-pen-to-square"></i> Edit</a>
-                                    <a href="hapus_ekskul.php?id=<?= $ekskul['id_ekstrakurikuler']; ?>" class="btn-action btn-delete" onclick="return confirm('Hapus ekskul ini?')"><i class="fa-solid fa-trash"></i> Hapus</a>
+                                    <a href="edit.php?type=ekskul&id=<?= urlencode($ekskul['id_ekstrakurikuler']); ?>" class="btn-action btn-edit"><i class="fa-solid fa-pen-to-square"></i> Edit</a>
+                                    <a href="hapus.php?type=ekskul&id=<?= urlencode($ekskul['id_ekstrakurikuler']); ?>" class="btn-action btn-delete btn-confirm-delete" data-message="Hapus ekskul ini?"><i class="fa-solid fa-trash"></i> Hapus</a>
                                 </td>
                             </tr>
                             <?php endforeach; ?>
@@ -458,6 +172,7 @@ function format_tanggal($tanggal) {
                     <thead>
                         <tr>
                             <th>No</th>
+                            <th>ID Pelanggaran</th>
                             <th>ID Siswa</th>
                             <th>Tanggal</th>
                             <th>Deskripsi Pelanggaran</th>
@@ -469,11 +184,12 @@ function format_tanggal($tanggal) {
                     </thead>
                     <tbody>
                         <?php if (empty($data_pelanggaran)): ?>
-                            <tr><td colspan="8" style="text-align:center;">Belum ada catatan pelanggaran.</td></tr>
+                            <tr><td colspan="9" class="text-center">Belum ada catatan pelanggaran.</td></tr>
                         <?php else: ?>
                             <?php foreach ($data_pelanggaran as $index => $pelanggaran): ?>
                             <tr>
                                 <td><?= $index + 1 ?></td>
+                                <td><strong><?= htmlspecialchars($pelanggaran['id_pelanggaran'] ?? '-'); ?></strong></td>
                                 <td><?= htmlspecialchars($pelanggaran['id_siswa']); ?></td>
                                 <td><?= format_tanggal($pelanggaran['tanggal_kejadian']); ?></td>
                                 <td><?= htmlspecialchars($pelanggaran['deskripsi']); ?></td>
@@ -481,9 +197,8 @@ function format_tanggal($tanggal) {
                                 <td><?= htmlspecialchars($pelanggaran['tindakan']); ?></td>
                                 <td><?= htmlspecialchars($pelanggaran['guru_piket']); ?></td>
                                 <td>
-                                    <!-- CATATAN: Ganti id_pelanggaran dengan Primary Key tabel catatan_pelanggaran kamu -->
-                                    <a href="edit_pelanggaran.php?id=<?= $pelanggaran['id_pelanggaran'] ?? $pelanggaran['id_siswa']; ?>" class="btn-action btn-edit"><i class="fa-solid fa-pen-to-square"></i> Edit</a>
-                                    <a href="hapus_pelanggaran.php?id=<?= $pelanggaran['id_pelanggaran'] ?? $pelanggaran['id_siswa']; ?>" class="btn-action btn-delete" onclick="return confirm('Hapus catatan kedisiplinan ini?')"><i class="fa-solid fa-trash"></i> Hapus</a>
+                                    <a href="edit.php?type=pelanggaran&id=<?= urlencode($pelanggaran['id_pelanggaran']); ?>" class="btn-action btn-edit"><i class="fa-solid fa-pen-to-square"></i> Edit</a>
+                                    <a href="hapus.php?type=pelanggaran&id=<?= urlencode($pelanggaran['id_pelanggaran']); ?>" class="btn-action btn-delete btn-confirm-delete" data-message="Hapus catatan kedisiplinan ini?"><i class="fa-solid fa-trash"></i> Hapus</a>
                                 </td>
                             </tr>
                             <?php endforeach; ?>
@@ -504,6 +219,7 @@ function format_tanggal($tanggal) {
                     <thead>
                         <tr>
                             <th>No</th>
+                            <th>ID Prestasi</th>
                             <th>ID Siswa</th>
                             <th>Tanggal</th>
                             <th>Kategori Prestasi</th>
@@ -515,11 +231,12 @@ function format_tanggal($tanggal) {
                     </thead>
                     <tbody>
                         <?php if (empty($data_prestasi)): ?>
-                            <tr><td colspan="8" style="text-align:center;">Belum ada catatan prestasi.</td></tr>
+                            <tr><td colspan="9" class="text-center">Belum ada catatan prestasi.</td></tr>
                         <?php else: ?>
                             <?php foreach ($data_prestasi as $index => $prestasi): ?>
                             <tr>
                                 <td><?= $index + 1 ?></td>
+                                <td><strong><?= htmlspecialchars($prestasi['id_prestasi'] ?? '-'); ?></strong></td>
                                 <td><?= htmlspecialchars($prestasi['id_siswa']); ?></td>
                                 <td><?= format_tanggal($prestasi['tanggal_prestasi']); ?></td>
                                 <td><?= htmlspecialchars($prestasi['jenis_prestasi']); ?></td>
@@ -527,9 +244,8 @@ function format_tanggal($tanggal) {
                                 <td><?= htmlspecialchars($prestasi['peringkat']); ?></td>
                                 <td><?= htmlspecialchars($prestasi['penyelenggara']); ?></td>
                                 <td>
-                                    <!-- CATATAN: Ganti id_prestasi dengan Primary Key tabel catatan_prestasi kamu -->
-                                    <a href="edit_prestasi.php?id=<?= $prestasi['id_prestasi'] ?? $prestasi['id_siswa']; ?>" class="btn-action btn-edit"><i class="fa-solid fa-pen-to-square"></i> Edit</a>
-                                    <a href="hapus_prestasi.php?id=<?= $prestasi['id_prestasi'] ?? $prestasi['id_siswa']; ?>" class="btn-action btn-delete" onclick="return confirm('Hapus catatan prestasi ini?')"><i class="fa-solid fa-trash"></i> Hapus</a>
+                                    <a href="edit.php?type=prestasi&id=<?= urlencode($prestasi['id_prestasi']); ?>" class="btn-action btn-edit"><i class="fa-solid fa-pen-to-square"></i> Edit</a>
+                                    <a href="hapus.php?type=prestasi&id=<?= urlencode($prestasi['id_prestasi']); ?>" class="btn-action btn-delete btn-confirm-delete" data-message="Hapus catatan prestasi ini?"><i class="fa-solid fa-trash"></i> Hapus</a>
                                 </td>
                             </tr>
                             <?php endforeach; ?>
@@ -573,5 +289,7 @@ function format_tanggal($tanggal) {
         &copy; 2026 SIM Kesiswaan SMKN 1 MAJA - Menguatkan Indonesia dengan SDM Unggul dan Siap Kerja.
     </footer>
 
+    <!-- External JavaScript File -->
+    <script src="script.js"></script>
 </body>
 </html>
