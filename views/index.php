@@ -45,7 +45,7 @@ function format_tanggal($tanggal) {
     <!-- Halaman Utama (Hero Section Khusus SMK) -->
     <section class="hero" id="home">
         <h1>Sistem Informasi Kesiswaan SMK NEGERI 1 MAJA</h1>
-        <p>Pusat pengelolaan data siswa kejuruan, kegiatan ekstrakurikuler, kedisiplinan, serta rekam jejak prestasi siswa siap kerja.</p>
+        <p>Pusat pengelolaan data siswa kejuruan, kegiatan ekstrakurikuler, kedisiplinan, serta rekam jejak prestasi siswa siap kerja. Sistem ini membantu sekolah dalam mengelola informasi kesiswaan secara terstruktur, mudah diakses, dan mendukung pemantauan perkembangan siswa.</p>
         <a href="#data-siswa" class="btn-cta"><i class="fa-solid fa-database"></i> Kelola Data Siswa</a>
     </section>
 
