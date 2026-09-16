@@ -1,5 +1,5 @@
 <?php
-include "koneksi.php";
+include "../config/koneksi.php";
 
 if (isset($_POST['submit'])) {
     $id_siswa = mysqli_real_escape_string($koneksi, $_POST['id_siswa']);
@@ -14,7 +14,7 @@ if (isset($_POST['submit'])) {
               VALUES ('$id_siswa', '$nama_lengkap', '$jenis_kelamin', '$tempat_tanggal_lahir', '$kelas', '$jurusan', '$no_hp')";
 
     if (mysqli_query($koneksi, $query)) {
-        echo "<script>alert('Data Siswa Berhasil Ditambahkan!'); window.location='index.php#data-siswa';</script>";
+        echo "<script>alert('Data Siswa Berhasil Ditambahkan!'); window.location='../views/index.php#data-siswa';</script>";
     } else {
         echo "<script>alert('Gagal Menambah Data: " . mysqli_error($koneksi) . "');</script>";
     }
@@ -27,7 +27,7 @@ if (isset($_POST['submit'])) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tambah Data Siswa - SMKN 1 MAJA</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="../assets/style.css">
 </head>
 <body>
     <div class="form-card">
@@ -69,7 +69,7 @@ if (isset($_POST['submit'])) {
             </div>
             <div class="btn-group">
                 <button type="submit" name="submit" class="btn-save">Simpan Data</button>
-                <a href="index.php#data-siswa" class="btn-cancel">Batal</a>
+                <a href="..views/index.php#data-siswa" class="btn-cancel">Batal</a>
             </div>
         </form>
     </div>

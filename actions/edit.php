@@ -1,5 +1,5 @@
 <?php
-include "koneksi.php";
+include "../config/koneksi.php";
 
 $type = $_GET['type'] ?? '';
 $id   = $_GET['id'] ?? '';
@@ -78,7 +78,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
     if (isset($query) && mysqli_query($koneksi, $query)) {
-        header("Location: index.php#data-" . $type);
+        header("Location: ../views/index.php#data-" . $type);
         exit;
     } else {
         $error = "Gagal memperbarui data: " . mysqli_error($koneksi);
@@ -116,7 +116,7 @@ if (!$data) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Edit Data <?= ucfirst($type); ?> - SMKN 1 MAJA</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="../assets/style.css">
 </head>
 <body>
     <div class="container" style="margin-top: 40px; max-width: 600px;">
@@ -207,7 +207,7 @@ if (!$data) {
 
             <div style="margin-top: 15px;">
                 <button type="submit" class="btn-cta" style="border:none; cursor:pointer;">Simpan Perubahan</button>
-                <a href="index.php" style="margin-left: 10px; text-decoration:none; color:#555;">Batal</a>
+                <a href="../views/index.php" style="margin-left: 10px; text-decoration:none; color:#555;">Batal</a>
             </div>
         </form>
     </div>

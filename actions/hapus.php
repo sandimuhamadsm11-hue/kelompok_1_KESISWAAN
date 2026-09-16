@@ -1,5 +1,5 @@
 <?php
-include "koneksi.php";
+include "../config/koneksi.php";
 
 $type = $_GET['type'] ?? '';
 $id   = $_GET['id'] ?? '';
@@ -33,14 +33,19 @@ if (!empty($type) && !empty($id)) {
         if (!$result) {
             echo "<script>
                     alert('Gagal menghapus data! Error: " . addslashes(mysqli_error($koneksi)) . "');
-                    window.location.href = 'index.php#data-" . $type . "';
+                    window.location.href = '../views/index.php#data-" . $type . "';
                   </script>";
+        } else {
+            header("Location: ../views/index.php");
             exit;
         }
     }
 }
 
 // Redirect kembali ke section terkait di index.php
-header("Location: index.php" . ($type ? "#data-" . $type : ""));
-exit;
+else{
+    header("Location: ../views/index.php" . ($type ? "#data-" . $type : ""));
+    exit;
+}
+
 ?>

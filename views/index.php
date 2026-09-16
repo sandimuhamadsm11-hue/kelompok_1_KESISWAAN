@@ -1,5 +1,5 @@
 <?php
-include "koneksi.php";
+include "../config/koneksi.php";
 
 // Fetch Data dari Database
 $data_siswa       = mysqli_fetch_all(mysqli_query($koneksi, "SELECT * FROM data_siswa"), MYSQLI_ASSOC);
@@ -23,7 +23,7 @@ function format_tanggal($tanggal) {
     <!-- Font Awesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <!-- External CSS -->
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="../assets/style.css">
 </head>
 <body>
 
@@ -76,7 +76,7 @@ function format_tanggal($tanggal) {
         <div class="card-table" id="data-siswa">
             <div class="card-header-flex">
                 <h2>Data Siswa Kejuruan</h2>
-                <a href="tambah_siswa.php" class="btn-add"><i class="fa-solid fa-plus"></i> Tambah Siswa</a>
+                <a href="../actions/tambah_siswa.php" class="btn-add"><i class="fa-solid fa-plus"></i> Tambah Siswa</a>
             </div>
             <div class="table-responsive">
                 <table>
@@ -108,8 +108,8 @@ function format_tanggal($tanggal) {
                                 <td><?= htmlspecialchars($siswa['jurusan']); ?></td>
                                 <td><?= htmlspecialchars($siswa['no_hp']); ?></td>
                                 <td>
-                                    <a href="edit.php?type=siswa&id=<?= urlencode($siswa['id_siswa']); ?>" class="btn-action btn-edit"><i class="fa-solid fa-pen-to-square"></i> Edit</a>
-                                    <a href="hapus.php?type=siswa&id=<?= urlencode($siswa['id_siswa']); ?>" class="btn-action btn-delete btn-confirm-delete" data-message="Hapus data siswa ini?"><i class="fa-solid fa-trash"></i> Hapus</a>
+                                    <a href="../actions/edit.php?type=siswa&id=<?= urlencode($siswa['id_siswa']); ?>" class="btn-action btn-edit"><i class="fa-solid fa-pen-to-square"></i> Edit</a>
+                                    <a href="../actions/hapus.php?type=siswa&id=<?= urlencode($siswa['id_siswa']); ?>" class="btn-action btn-delete btn-confirm-delete" data-message="Hapus data siswa ini?"><i class="fa-solid fa-trash"></i> Hapus</a>
                                 </td>
                             </tr>
                             <?php endforeach; ?>
@@ -165,7 +165,7 @@ function format_tanggal($tanggal) {
         <div class="card-table" id="catatan-pelanggaran">
             <div class="card-header-flex">
                 <h2>Catatan Kedisiplinan & Pelanggaran Tatib SMK</h2>
-                <a href="tambah_pelanggaran.php" class="btn-add"><i class="fa-solid fa-plus"></i> Tambah Pelanggaran</a>
+                <a href="../actions/tambah_pelanggaran.php" class="btn-add"><i class="fa-solid fa-plus"></i> Tambah Pelanggaran</a>
             </div>
             <div class="table-responsive">
                 <table>
@@ -197,8 +197,8 @@ function format_tanggal($tanggal) {
                                 <td><?= htmlspecialchars($pelanggaran['tindakan']); ?></td>
                                 <td><?= htmlspecialchars($pelanggaran['guru_piket']); ?></td>
                                 <td>
-                                    <a href="edit.php?type=pelanggaran&id=<?= urlencode($pelanggaran['id_pelanggaran']); ?>" class="btn-action btn-edit"><i class="fa-solid fa-pen-to-square"></i> Edit</a>
-                                    <a href="hapus.php?type=pelanggaran&id=<?= urlencode($pelanggaran['id_pelanggaran']); ?>" class="btn-action btn-delete btn-confirm-delete" data-message="Hapus catatan kedisiplinan ini?"><i class="fa-solid fa-trash"></i> Hapus</a>
+                                    <a href="../actions/edit.php?type=pelanggaran&id=<?= urlencode($pelanggaran['id_pelanggaran']); ?>" class="btn-action btn-edit"><i class="fa-solid fa-pen-to-square"></i> Edit</a>
+                                    <a href="../actions/hapus.php?type=pelanggaran&id=<?= urlencode($pelanggaran['id_pelanggaran']); ?>" class="btn-action btn-delete btn-confirm-delete" data-message="Hapus catatan kedisiplinan ini?"><i class="fa-solid fa-trash"></i> Hapus</a>
                                 </td>
                             </tr>
                             <?php endforeach; ?>
@@ -212,7 +212,7 @@ function format_tanggal($tanggal) {
         <div class="card-table" id="catatan-prestasi">
             <div class="card-header-flex">
                 <h2>Catatan Prestasi & Ajang LKS (Lomba Kompetensi Siswa)</h2>
-                <a href="tambah_prestasi.php" class="btn-add"><i class="fa-solid fa-plus"></i> Tambah Prestasi</a>
+                <a href="../actions/tambah_prestasi.php" class="btn-add"><i class="fa-solid fa-plus"></i> Tambah Prestasi</a>
             </div>
             <div class="table-responsive">
                 <table>
@@ -244,8 +244,8 @@ function format_tanggal($tanggal) {
                                 <td><?= htmlspecialchars($prestasi['peringkat']); ?></td>
                                 <td><?= htmlspecialchars($prestasi['penyelenggara']); ?></td>
                                 <td>
-                                    <a href="edit.php?type=prestasi&id=<?= urlencode($prestasi['id_prestasi']); ?>" class="btn-action btn-edit"><i class="fa-solid fa-pen-to-square"></i> Edit</a>
-                                    <a href="hapus.php?type=prestasi&id=<?= urlencode($prestasi['id_prestasi']); ?>" class="btn-action btn-delete btn-confirm-delete" data-message="Hapus catatan prestasi ini?"><i class="fa-solid fa-trash"></i> Hapus</a>
+                                    <a href="../actions/edit.php?type=prestasi&id=<?= urlencode($prestasi['id_prestasi']); ?>" class="btn-action btn-edit"><i class="fa-solid fa-pen-to-square"></i> Edit</a>
+                                    <a href="../actions/hapus.php?type=prestasi&id=<?= urlencode($prestasi['id_prestasi']); ?>" class="btn-action btn-delete btn-confirm-delete" data-message="Hapus catatan prestasi ini?"><i class="fa-solid fa-trash"></i> Hapus</a>
                                 </td>
                             </tr>
                             <?php endforeach; ?>
@@ -290,6 +290,6 @@ function format_tanggal($tanggal) {
     </footer>
 
     <!-- External JavaScript File -->
-    <script src="script.js"></script>
+    <script src="../assets/script.js"></script>
 </body>
 </html>

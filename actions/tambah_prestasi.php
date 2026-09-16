@@ -1,5 +1,5 @@
 <?php
-include "koneksi.php";
+include "../config/koneksi.php";
 
 // Ambil list siswa untuk pilihan dropdown
 $siswa_list = mysqli_query($koneksi, "SELECT id_siswa, nama_lengkap FROM data_siswa");
@@ -27,7 +27,7 @@ if (isset($_POST['submit'])) {
               VALUES ('$id_prestasi', '$id_siswa', '$tanggal_prestasi', '$jenis_prestasi', '$nama_prestasi', '$peringkat', '$penyelenggara')";
 
     if (mysqli_query($koneksi, $query)) {
-        echo "<script>alert('Catatan Prestasi Berhasil Ditambahkan!'); window.location='index.php#catatan-prestasi';</script>";
+        echo "<script>alert('Catatan Prestasi Berhasil Ditambahkan!'); window.location='../views/index.php#catatan-prestasi';</script>";
     } else {
         echo "<script>alert('Gagal Menambah Data: " . mysqli_error($koneksi) . "');</script>";
     }
@@ -40,7 +40,7 @@ if (isset($_POST['submit'])) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tambah Catatan Prestasi - SMKN 1 MAJA</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="../assets/style.css">
 </head>
 <body>
     <div class="form-card">
@@ -93,7 +93,7 @@ if (isset($_POST['submit'])) {
             
             <div class="btn-group">
                 <button type="submit" name="submit" class="btn-save">Simpan Prestasi</button>
-                <a href="index.php#catatan-prestasi" class="btn-cancel">Batal</a>
+                <a href="../views/index.php#catatan-prestasi" class="btn-cancel">Batal</a>
             </div>
         </form>
     </div>
