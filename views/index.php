@@ -258,24 +258,26 @@ function format_tanggal($tanggal) {
         <!-- Informasi Tambahan Khas SMK (3 Kartu Informasi Khusus Kejuruan) -->
         <div class="smk-info-grid" id="info-smk">
             <div class="info-card">
-                <h3><i class="fa-solid fa-industry"></i> Informasi PKL / Prakerin</h3>
+               <h3><i class="fa-solid fa-industry"></i> Informasi PKL / Prakerin</h3>
                 <ul>
-                    <li><strong>Persyaratan PKL:</strong> Bebas dari akumulasi poin pelanggaran > 30.</li>
-                    <li><strong>Sertifikat Industri:</strong> Wajib dikumpulkan ke Pokja PKL setelah pembekalan usai.</li>
-                    <li><strong>Monitoring:</strong> Dilakukan oleh guru pembimbing tiap 2 minggu sekali.</li>
+                    <li><strong>Program pembelajaran di dunia kerja untuk menerapkan kompetensi, menambah pengalaman, dan mempersiapkan siswa menghadapi dunia kerja.</strong></li>
+                    <li> PKLjuga bisa sebagai wahana pengalaman baru bagi mereka sebelum terjun langsung ke dunia kerja.</li>
+                    <li>PKLmerupakan sebuah program dan sistem pembelajaran yang pelaksanaanya ada di luar proses belajar mengajar.</li>
+                    <li>SMKN 1 MAJA sendiri telah bekerja sama lebih dari 53 instansi pemerintah ataupun swasta dalam penyelengaraan PKL.</li>
                 </ul>
             </div>
             <div class="info-card">
-                <h3><i class="fa-solid fa-certificate"></i> Uji Kompetensi Keahlian (UKK)</h3>
+                <h3><i class="fa-solid fa-certificate"></i>Kewirausahaan</h3>
                 <ul>
-                    <li><strong>Sertifikasi LSP-P1:</strong> Verifikasi tempat uji kompetensi (TUK) dimulai bulan depan.</li>
-                    <li><strong>Ketentuan Kebersihan Lab:</strong> Poin kedisiplinan berimbas pada kelayakan paspor K3 siswa.</li>
-                    <li><strong>Penguji Eksternal:</strong> Didatangkan langsung dari Mitra Industri / DUDI terkait.</li>
+                    <li><strong>Kewirausahaan adalah sikap dan kemampuan seseorang dalam menciptakan ide atau usaha yang kreatif dan bermanfaat. Kegiatan ini melibatkan proses mengembangkan ide, mengelola sumber daya, serta menghadapi risiko untuk mencapai tujuan usaha.</strong></li>
+                    <li>>Di SMKN 1 MAJA, siswa juga akan mempelajari dasar-dasar kewirausahaan sebagai bekal untuk mengembangkan kreativitas dan memulai usaha.</li>
+                    
                 </ul>
             </div>
             <div class="info-card">
                 <h3><i class="fa-solid fa-briefcase"></i> Bursa Kerja Khusus (BKK) SMK</h3>
                 <ul>
+                    <li><strong>Menyediakan informasi lowongan dan membantu lulusan mendapatkan pekerjaan sesuai keahlian.</strong></li>
                     <li><strong>Layanan Rekrutmen:</strong> Informasi lowongan kerja khusus alumni & kelas XII.</li>
                     <li><strong>Penyaluran Kerja:</strong> Bekerja sama dengan lebih dari 20 mitra industri nasional.</li>
                     <li><strong>Kontak BKK:</strong> Gedung Hubin / Ruang BKK SMK (Jam kerja 08.00 - 15.00 WIB).</li>
