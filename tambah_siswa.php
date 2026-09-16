@@ -6,7 +6,7 @@ if (isset($_POST['submit'])) {
     $nama_lengkap = mysqli_real_escape_string($koneksi, $_POST['nama_lengkap']);
     $jenis_kelamin = mysqli_real_escape_string($koneksi, $_POST['jenis_kelamin']);
     
-    // Ambil tanggal lahir langsung (format asli HTML: YYYY-MM-DD)
+    // Ambil tanggal lahir langsung format asli HTML: YYYY-MM-DD
     // Jangan diubah ke teks agar sesuai dengan tipe data DATE di MySQL
     $tempat_tanggal_lahir = mysqli_real_escape_string($koneksi, $_POST['tanggal_lahir']);
 
