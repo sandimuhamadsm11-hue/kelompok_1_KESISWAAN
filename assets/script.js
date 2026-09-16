@@ -11,7 +11,7 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     });
 
-    // 2. Smooth Scroll untuk Link Navigasi Navbar
+    // 2. Smooth Scroll untuk Link Navigasi navbar
     const navLinks = document.querySelectorAll('.navbar a[href^="#"], .hero a[href^="#"]');
     
     navLinks.forEach(link => {
