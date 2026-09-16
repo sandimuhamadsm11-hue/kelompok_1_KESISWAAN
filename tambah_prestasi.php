@@ -12,7 +12,6 @@ if (isset($_POST['submit'])) {
     $nama_prestasi    = mysqli_real_escape_string($koneksi, $_POST['nama_prestasi']);
     
     // Pastikan input peringkat berupa angka jika database bertipe INT
-    // Mengambil hanya karakter angka dari input
     $peringkat_input  = $_POST['peringkat'];
     $peringkat        = (int) preg_replace('/[^0-9]/', '', $peringkat_input);
     
@@ -41,18 +40,7 @@ if (isset($_POST['submit'])) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tambah Catatan Prestasi - SMKN 1 MAJA</title>
-    <style>
-        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: #f8fafc; padding: 40px 20px; color: #334155; }
-        .form-card { max-width: 600px; background: #fff; margin: 0 auto; padding: 30px; border-radius: 8px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1); border-top: 4px solid #10b981; }
-        h2 { margin-bottom: 20px; color: #0f172a; }
-        .form-group { margin-bottom: 15px; }
-        label { display: block; margin-bottom: 5px; font-weight: 600; font-size: 0.9rem; }
-        input, select { width: 100%; padding: 10px; border: 1px solid #cbd5e1; border-radius: 5px; font-size: 0.9rem; box-sizing: border-box; }
-        .btn-group { display: flex; gap: 10px; margin-top: 20px; }
-        .btn-save { background: #10b981; color: white; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer; font-weight: 600; }
-        .btn-cancel { background: #64748b; color: white; border: none; padding: 10px 20px; border-radius: 5px; text-decoration: none; font-size: 0.9rem; text-align: center; }
-        .btn-save:hover { background: #059669; }
-    </style>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <div class="form-card">
