@@ -9,7 +9,7 @@ if (!$type || !$id) {
     exit;
 }
 
-// Proses Update Data saat Form Dikirrim
+// Proses Update Data saat Form Dikirim
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if ($type === 'siswa') {
         $id_siswa = mysqli_real_escape_string($koneksi, $_POST['id_siswa']);
