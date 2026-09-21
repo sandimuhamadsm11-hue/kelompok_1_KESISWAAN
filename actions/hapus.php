@@ -7,7 +7,7 @@ $id   = $_GET['id'] ?? '';
 if (!empty($type) && !empty($id)) {
     $safe_id = mysqli_real_escape_string($koneksi, $id);
 
-    // Tentukan query hapus berdasarkan type
+    // menentukan query hapus berdasarkan type
     switch ($type) {
         case 'siswa':
             $query = "DELETE FROM data_siswa WHERE id_siswa = '$safe_id'";
