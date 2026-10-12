@@ -1,0 +1,314 @@
+/* bagian halaman siswa */
+
+:root {
+    --primary-blue: #0f4c81;
+    --secondary-blue: #1e88e5;
+    --light-blue: #e3f2fd;
+    --accent-blue: #0277bd;
+    --dark-text: #333333;
+    --light-bg: #f8fafc;
+    --white: #ffffff;
+    --border-color: #cbd5e1;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    background-color: var(--light-bg);
+    color: var(--dark-text);
+    line-height: 1.6;
+}
+
+/* Navbar */
+.navbar {
+    background: linear-gradient(135deg, var(--primary-blue), var(--secondary-blue));
+    color: var(--white);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 5%;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.navbar .logo {
+    font-size: 1.15rem;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.nav-links {
+    list-style: none;
+    display: flex;
+    gap: 15px;
+    align-items: center;
+}
+
+/* Tombol Login yang disesuaikan (tidak silau/putih polos) */
+.btn-login {
+    background-color: rgba(255, 255, 255, 0.15);
+    color: var(--white);
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-weight: 600;
+    font-size: 0.85rem;
+    text-decoration: none;
+    transition: all 0.2s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.btn-login:hover {
+    background-color: var(--white);
+    color: var(--primary-blue);
+}
+
+.nav-links a:not(.btn-login) {
+    color: var(--white);
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 0.9rem;
+    transition: opacity 0.2s;
+}
+
+.nav-links a:not(.btn-login):hover {
+    opacity: 0.8;
+}
+
+/* Hero Section */
+.hero {
+    background: linear-gradient(rgba(15, 76, 129, 0.85), rgba(30, 136, 229, 0.85)), url('../assets/hero-bg.jpg') no-repeat center center/cover;
+    color: var(--white);
+    text-align: center;
+    padding: 4rem 1rem;
+}
+
+.hero h1 {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+}
+
+.hero p {
+    max-width: 800px;
+    margin: 0 auto 2rem auto;
+    font-size: 1rem;
+    opacity: 0.95;
+    padding: 0 10px;
+}
+
+.btn-cta {
+    background-color: var(--white);
+    color: var(--primary-blue);
+    padding: 10px 20px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-weight: bold;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    transition: background 0.2s;
+    font-size: 0.9rem;
+}
+
+.btn-cta:hover {
+    background-color: var(--light-blue);
+}
+
+/* Container */
+.container {
+    max-width: 1200px;
+    margin: 1.5rem auto;
+    padding: 0 15px;
+}
+
+/* Stats Grid */
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 15px;
+    margin-bottom: 2rem;
+}
+
+.stat-card {
+    background: var(--white);
+    padding: 15px;
+    border-radius: 8px;
+    text-align: center;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    border-top: 4px solid var(--secondary-blue);
+}
+
+.stat-card h3 {
+    font-size: 1.75rem;
+    color: var(--primary-blue);
+    margin-bottom: 5px;
+}
+
+.stat-card p {
+    color: #64748b;
+    font-size: 0.9rem;
+}
+
+/* Card Table */
+.card-table {
+    background: var(--white);
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    margin-bottom: 2rem;
+    overflow: hidden;
+}
+
+.card-header-flex {
+    background-color: var(--light-blue);
+    padding: 12px 15px;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.card-header-flex h2 {
+    color: var(--primary-blue);
+    font-size: 1.1rem;
+}
+
+.table-responsive {
+    overflow-x: auto;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: left;
+    white-space: nowrap; /* Mencegah teks terpotong aneh di layar kecil */
+}
+
+th, td {
+    padding: 10px 12px;
+    font-size: 0.85rem;
+    border-bottom: 1px solid #e2e8f0;
+}
+
+th {
+    background-color: #f1f5f9;
+    color: var(--primary-blue);
+    font-weight: 600;
+}
+
+tr:hover {
+    background-color: #f8fafc;
+}
+
+.text-center {
+    text-align: center;
+    color: #64748b;
+    padding: 15px;
+}
+
+/* Badge Poin */
+.badge-poin {
+    background-color: #fee2e2;
+    color: #991b1b;
+    padding: 3px 6px;
+    border-radius: 4px;
+    font-weight: 600;
+    font-size: 0.8rem;
+}
+
+/* SMK Info Grid */
+.smk-info-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 15px;
+    margin-bottom: 2rem;
+}
+
+.info-card {
+    background: var(--white);
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    border-left: 4px solid var(--accent-blue);
+}
+
+.info-card h3 {
+    color: var(--primary-blue);
+    margin-bottom: 10px;
+    font-size: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.info-card ul {
+    padding-left: 18px;
+}
+
+.info-card li {
+    font-size: 0.85rem;
+    margin-bottom: 6px;
+    color: #475569;
+}
+
+/* Footer */
+footer {
+    background-color: var(--primary-blue);
+    color: var(--white);
+    text-align: center;
+    padding: 1.2rem;
+    font-size: 0.85rem;
+}
+
+/* ==========================================
+   RESPONSIVE MEDIA QUERIES (UNTUK HP)
+   ========================================== */
+@media screen and (max-width: 768px) {
+    .navbar {
+        flex-direction: column;
+        padding: 0.8rem 1rem;
+        gap: 10px;
+    }
+
+    .navbar .logo {
+        font-size: 1rem;
+    }
+
+    .nav-links {
+        width: 100%;
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 10px;
+        padding-bottom: 5px;
+    }
+
+    .nav-links a:not(.btn-login) {
+        font-size: 0.8rem;
+    }
+
+    .btn-login {
+        padding: 5px 10px;
+        font-size: 0.8rem;
+    }
+
+    .hero {
+        padding: 3rem 1rem;
+    }
+
+    .hero h1 {
+        font-size: 1.5rem;
+    }
+
+    .hero p {
+        font-size: 0.9rem;
+    }
+
+    .container {
+        padding: 0 10px;
+    }
+}

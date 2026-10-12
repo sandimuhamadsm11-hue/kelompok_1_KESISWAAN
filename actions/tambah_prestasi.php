@@ -1,35 +1,48 @@
 <?php
 include "../config/koneksi.php";
 
+$pesan_error = "";
+
 // Ambil list siswa untuk pilihan dropdown
 $siswa_list = mysqli_query($koneksi, "SELECT id_siswa, nama_lengkap FROM data_siswa");
 
 if (isset($_POST['submit'])) {
-    $id_prestasi      = mysqli_real_escape_string($koneksi, $_POST['id_prestasi']);
-    $id_siswa         = mysqli_real_escape_string($koneksi, $_POST['id_siswa']);
-    $tanggal_prestasi = mysqli_real_escape_string($koneksi, $_POST['tanggal_prestasi']);
-    $jenis_prestasi   = mysqli_real_escape_string($koneksi, $_POST['jenis_prestasi']);
-    $nama_prestasi    = mysqli_real_escape_string($koneksi, $_POST['nama_prestasi']);
+    $id_prestasi        = mysqli_real_escape_string($koneksi, $_POST['id_prestasi']);
+    $id_siswa           = mysqli_real_escape_string($koneksi, $_POST['id_siswa']);
+    $tanggal_prestasi   = mysqli_real_escape_string($koneksi, $_POST['tanggal_prestasi']);
+    $jenis_prestasi     = mysqli_real_escape_string($koneksi, $_POST['jenis_prestasi']);
+    $nama_prestasi      = mysqli_real_escape_string($koneksi, $_POST['nama_prestasi']);
     
-    // Pastikan input peringkat berupa angka jika database bertipe INT
-    $peringkat_input  = $_POST['peringkat'];
-    $peringkat        = (int) preg_replace('/[^0-9]/', '', $peringkat_input);
+    $peringkat_input    = $_POST['peringkat'];
+    $peringkat          = (int) preg_replace('/[^0-9]/', '', $peringkat_input);
     
-    // Jika input tidak mengandung angka sama sekali, beri nilai default 0
-    if ($peringkat === 0 && !empty($peringkat_input) && $peringkat_input !== '0') {
-        $peringkat = 0; 
-    }
+    $penyelenggara      = mysqli_real_escape_string($koneksi, $_POST['penyelenggara']);
 
-    $penyelenggara    = mysqli_real_escape_string($koneksi, $_POST['penyelenggara']);
+    // 1. Validasi Kolom Kosong
+    if (empty($id_prestasi) || empty($id_siswa) || empty($tanggal_prestasi) || empty($jenis_prestasi) || empty($nama_prestasi) || empty($peringkat_input)) {
+        $pesan_error = "Semua kolom wajib diisi!";
+    } 
+    // 2. Validasi Peringkat harus berupa angka positif
+    elseif ($peringkat <= 0) {
+        $pesan_error = "Peringkat / Juara harus berupa angka yang valid (minimal 1)!";
+    } 
+    // 3. Cek apakah ID Prestasi sudah terdaftar di database
+    else {
+        $cek_id = mysqli_query($koneksi, "SELECT * FROM catatan_prestasi WHERE id_prestasi = '$id_prestasi'");
+        if (mysqli_num_rows($cek_id) > 0) {
+            $pesan_error = "Gagal: ID Prestasi '$id_prestasi' sudah terdaftar di database!";
+        } else {
+            // Jika lolos semua validasi, lakukan proses INSERT
+            $query = "INSERT INTO catatan_prestasi (id_prestasi, id_siswa, tanggal_prestasi, jenis_prestasi, nama_prestasi, peringkat, penyelenggara) 
+                      VALUES ('$id_prestasi', '$id_siswa', '$tanggal_prestasi', '$jenis_prestasi', '$nama_prestasi', '$peringkat', '$penyelenggara')";
 
-    // Menambahkan id_prestasi ke dalam query INSERT
-    $query = "INSERT INTO catatan_prestasi (id_prestasi, id_siswa, tanggal_prestasi, jenis_prestasi, nama_prestasi, peringkat, penyelenggara) 
-              VALUES ('$id_prestasi', '$id_siswa', '$tanggal_prestasi', '$jenis_prestasi', '$nama_prestasi', '$peringkat', '$penyelenggara')";
-
-    if (mysqli_query($koneksi, $query)) {
-        echo "<script>alert('Catatan Prestasi Berhasil Ditambahkan!'); window.location='../views/index.php#catatan-prestasi';</script>";
-    } else {
-        echo "<script>alert('Gagal Menambah Data: " . mysqli_error($koneksi) . "');</script>";
+            if (mysqli_query($koneksi, $query)) {
+                echo "<script>alert('Catatan Prestasi Berhasil Ditambahkan!'); window.location='../views/index.php#catatan-prestasi';</script>";
+                exit;
+            } else {
+                $pesan_error = "Gagal menyimpan ke database: " . mysqli_error($koneksi);
+            }
+        }
     }
 }
 ?>
@@ -41,54 +54,82 @@ if (isset($_POST['submit'])) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tambah Catatan Prestasi - SMKN 1 MAJA</title>
     <link rel="stylesheet" href="../assets/style.css">
+    <style>
+        /* Desain alert error */
+        .alert-error {
+            background-color: #f8d7da;
+            color: #721c24;
+            padding: 10px 15px;
+            border: 1px solid #f5c6cb;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            font-size: 14px;
+        }
+    </style>
 </head>
 <body>
     <div class="form-card">
         <h2>Tambah Catatan Prestasi Siswa</h2>
+
+        <!-- Tampilkan Pesan Error Jika Ada -->
+        <?php if (!empty($pesan_error)) : ?>
+            <div class="alert-error">
+                <strong>Peringatan!</strong> <?= $pesan_error; ?>
+            </div>
+        <?php endif; ?>
+
         <form action="" method="POST">
             <div class="form-group">
                 <label>ID Prestasi</label>
-                <input type="text" name="id_prestasi" required placeholder="Contoh: PRS001">
+                <input type="text" name="id_prestasi" required placeholder="Contoh: PRS001" value="<?= isset($_POST['id_prestasi']) ? htmlspecialchars($_POST['id_prestasi']) : ''; ?>">
             </div>
 
             <div class="form-group">
                 <label>Pilih Siswa</label>
                 <select name="id_siswa" required>
                     <option value="">-- Pilih Siswa --</option>
-                    <?php while ($s = mysqli_fetch_assoc($siswa_list)): ?>
-                        <option value="<?= $s['id_siswa']; ?>"><?= $s['id_siswa']; ?> - <?= $s['nama_lengkap']; ?></option>
+                    <?php 
+                    // Reset pointer query siswa jika sebelumnya sudah terpakai
+                    mysqli_data_seek($siswa_list, 0);
+                    while ($s = mysqli_fetch_assoc($siswa_list)): 
+                        $selected = (isset($_POST['id_siswa']) && $_POST['id_siswa'] == $s['id_siswa']) ? 'selected' : '';
+                    ?>
+                        <option value="<?= $s['id_siswa']; ?>" <?= $selected; ?>>
+                            <?= $s['id_siswa'] . ' - ' . $s['nama_lengkap']; ?>
+                        </option>
                     <?php endwhile; ?>
                 </select>
             </div>
             
             <div class="form-group">
                 <label>Tanggal Prestasi / Kejuaraan</label>
-                <input type="date" name="tanggal_prestasi" value="<?= date('Y-m-d'); ?>" required>
+                <input type="date" name="tanggal_prestasi" value="<?= isset($_POST['tanggal_prestasi']) ? htmlspecialchars($_POST['tanggal_prestasi']) : date('Y-m-d'); ?>" required>
             </div>
             
             <div class="form-group">
                 <label>Kategori / Jenis Prestasi</label>
                 <select name="jenis_prestasi" required>
-                    <option value="Akademik / LKS">Akademik / LKS</option>
-                    <option value="Non-Akademik / Olahraga">Non-Akademik / Olahraga</option>
-                    <option value="Seni & Budaya">Seni & Budaya</option>
-                    <option value="Sertifikasi Industri">Sertifikasi Industri</option>
+                    <option value="">-- Pilih Kategori --</option>
+                    <option value="Akademik / LKS" <?= (isset($_POST['jenis_prestasi']) && $_POST['jenis_prestasi'] == 'Akademik / LKS') ? 'selected' : ''; ?>>Akademik / LKS</option>
+                    <option value="Non-Akademik / Olahraga" <?= (isset($_POST['jenis_prestasi']) && $_POST['jenis_prestasi'] == 'Non-Akademik / Olahraga') ? 'selected' : ''; ?>>Non-Akademik / Olahraga</option>
+                    <option value="Seni & Budaya" <?= (isset($_POST['jenis_prestasi']) && $_POST['jenis_prestasi'] == 'Seni & Budaya') ? 'selected' : ''; ?>>Seni & Budaya</option>
+                    <option value="Sertifikasi Industri" <?= (isset($_POST['jenis_prestasi']) && $_POST['jenis_prestasi'] == 'Sertifikasi Industri') ? 'selected' : ''; ?>>Sertifikasi Industri</option>
                 </select>
             </div>
             
             <div class="form-group">
                 <label>Nama Kejuaraan / Perlombaan</label>
-                <input type="text" name="nama_prestasi" required placeholder="Contoh: LKS Web Technologies Tingkat Provinsi">
+                <input type="text" name="nama_prestasi" required placeholder="Contoh: LKS Web Technologies Tingkat Provinsi" value="<?= isset($_POST['nama_prestasi']) ? htmlspecialchars($_POST['nama_prestasi']) : ''; ?>">
             </div>
             
             <div class="form-group">
                 <label>Peringkat / Juara (Masukkan Angka)</label>
-                <input type="number" name="peringkat" min="1" required placeholder="Contoh: 1 (untuk Juara 1)">
+                <input type="number" name="peringkat" min="1" required placeholder="Contoh: 1 (untuk Juara 1)" value="<?= isset($_POST['peringkat']) ? htmlspecialchars($_POST['peringkat']) : ''; ?>">
             </div>
             
             <div class="form-group">
                 <label>Penyelenggara / Institusi</label>
-                <input type="text" name="penyelenggara" placeholder="Contoh: Disdik Provinsi / Kemendikbud">
+                <input type="text" name="penyelenggara" placeholder="Contoh: Disdik Provinsi / Kemendikbud" value="<?= isset($_POST['penyelenggara']) ? htmlspecialchars($_POST['penyelenggara']) : ''; ?>">
             </div>
             
             <div class="btn-group">
