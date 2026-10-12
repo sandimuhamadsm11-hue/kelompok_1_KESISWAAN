@@ -19,7 +19,7 @@ function format_tanggal($tanggal) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sistem Informasi Kesiswaan SMK NEGERI 1 MAJA</title>
+    <title>Sistem Admin & Informasi Kesiswaan SMK NEGERI 1 MAJA</title>
     <!-- Font Awesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <!-- External CSS -->
@@ -30,9 +30,10 @@ function format_tanggal($tanggal) {
     <!-- Navbar Navigation -->
     <nav class="navbar">
         <div class="logo">
-            <i class="fa-solid fa-graduation-cap"></i> SIMK SMKN 1 MAJA
+            <i class="fa-solid fa-graduation-cap"></i> SAIMK
         </div>
         <ul class="nav-links">
+             <li><a href="login_siswa.php" class="btn-login">Login</a></li>
             <li><a href="#home">Beranda</a></li>
             <li><a href="#data-siswa">Siswa</a></li>
             <li><a href="#data-ekskul">Ekskul</a></li>
@@ -44,7 +45,7 @@ function format_tanggal($tanggal) {
 
     <!-- Halaman Utama (Hero Section Khusus SMK) -->
     <section class="hero" id="home">
-        <h1>Sistem Informasi Kesiswaan SMK NEGERI 1 MAJA</h1>
+        <h1>Sistem Admin & Informasi Kesiswaan SMK NEGERI 1 MAJA</h1>
         <p>Pusat pengelolaan data siswa kejuruan, kegiatan ekstrakurikuler, kedisiplinan, serta rekam jejak prestasi siswa siap kerja. Sistem ini membantu sekolah dalam mengelola informasi kesiswaan secara terstruktur, mudah diakses, dan mendukung pemantauan perkembangan siswa.</p>
         <a href="#data-siswa" class="btn-cta"><i class="fa-solid fa-database"></i> Kelola Data Siswa</a>
     </section>
