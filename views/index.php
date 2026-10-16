@@ -256,32 +256,30 @@ function format_tanggal($tanggal) {
             </div>
         </div>
 
-        <!-- Informasi Tambahan Khas SMK (3 Kartu Informasi Khusus Kejuruan) -->
+        <!-- Informasi Tambahan Khas SMK -->
         <div class="smk-info-grid" id="info-smk">
             <div class="info-card">
-               <h3><i class="fa-solid fa-industry"></i> Informasi PKL / Prakerin</h3>
-                <ul>
-                    <li><strong>Program pembelajaran di dunia kerja untuk menerapkan kompetensi, menambah pengalaman, dan mempersiapkan siswa menghadapi dunia kerja.</strong></li>
-                    <li> PKLjuga bisa sebagai wahana pengalaman baru bagi mereka sebelum terjun langsung ke dunia kerja.</li>
-                    <li>PKLmerupakan sebuah program dan sistem pembelajaran yang pelaksanaanya ada di luar proses belajar mengajar.</li>
-                    <li>SMKN 1 MAJA sendiri telah bekerja sama lebih dari 53 instansi pemerintah ataupun swasta dalam penyelengaraan PKL.</li>
-                </ul>
+               <h3><i class="fas fa-users-cog mr-2"></i> Informasi Ekstrakurikuler Kepemimpinan</h3>
+               <ul>
+                   <li><strong>Wadah pengembangan diri siswa untuk mengasah jiwa kepemimpinan, kedisiplinan, tanggung jawab, dan kerja sama tim. Pembinaan ini mencakup empat bidang utama:</strong></li>
+                   <li>PMR: Pembinaan karakter kemanusiaan dan kesiapsiagaan kesehatan.</li>
+                   <li>Paskibra: Pelatihan kedisiplinan tinggi, baris-berbaris, dan jiwa kepemimpinan..</li>
+                   <li>PKS: Pelatihan ketertiban lalu lintas dan keamanan lingkungan sekolah.</li>
+                   <li>Pramuka: Pembentukan karakter mandiri, gotong royong, dan kecakapan hidup.</li>
+               </ul>
             </div>
             <div class="info-card">
-                <h3><i class="fa-solid fa-certificate"></i>Kewirausahaan</h3>
+                <h3><i class="fa-solid fa-certificate"></i> Kewirausahaan</h3>
                 <ul>
                     <li><strong>Kewirausahaan adalah sikap dan kemampuan seseorang dalam menciptakan ide atau usaha yang kreatif dan bermanfaat. Kegiatan ini melibatkan proses mengembangkan ide, mengelola sumber daya, serta menghadapi risiko untuk mencapai tujuan usaha.</strong></li>
-                    <li>>Di SMKN 1 MAJA, siswa juga akan mempelajari dasar-dasar kewirausahaan sebagai bekal untuk mengembangkan kreativitas dan memulai usaha.</li>
-                    
+                    <li>Di SMKN 1 MAJA, siswa juga akan mempelajari dasar-dasar kewirausahaan sebagai bekal untuk mengembangkan kreativitas dan memulai usaha.</li>
                 </ul>
             </div>
             <div class="info-card">
-                <h3><i class="fa-solid fa-briefcase"></i> Bursa Kerja Khusus (BKK) SMK</h3>
+                <h3><i class="fas fa-users-cog mr-2"></i> Informasi Ekstrakurikuler Pilihan</h3>
                 <ul>
-                    <li><strong>Menyediakan informasi lowongan dan membantu lulusan mendapatkan pekerjaan sesuai keahlian.</strong></li>
-                    <li><strong>Layanan Rekrutmen:</strong> Informasi lowongan kerja khusus alumni & kelas XII.</li>
-                    <li><strong>Penyaluran Kerja:</strong> Bekerja sama dengan lebih dari 20 mitra industri nasional.</li>
-                    <li><strong>Kontak BKK:</strong> Gedung Hubin / Ruang BKK SMK (Jam kerja 08.00 - 15.00 WIB).</li>
+                    <li><strong>Pengertian Umum: </strong> Ekstrakurikuler pilihan adalah kegiatan tambahan di luar jam pelajaran utama yang dapat dipilih oleh siswa sesuai dengan minat, bakat, dan potensi diri untuk mengembangkan keterampilan khusus.</li>
+                    <li><strong>Tujuan Utama: </strong> Memberikan kebebasan kepada siswa untuk menyalurkan hobi, memperluas wawasan non-akademik, serta mengasah keterampilan praktis sebagai persiapan menghadapi dunia kerja maupun kehidupan sosial.</li>
                 </ul>
             </div>
         </div>
@@ -291,6 +289,7 @@ function format_tanggal($tanggal) {
     <footer>
         &copy; 2026 SIM Kesiswaan SMKN 1 MAJA - Menguatkan Indonesia dengan SDM Unggul dan Siap Kerja.
     </footer>
+
 
     <!-- External JavaScript File -->
     <script src="../assets/script.js"></script>
