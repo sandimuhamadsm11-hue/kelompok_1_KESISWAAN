@@ -10,7 +10,9 @@ if (isset($_POST['submit'])) {
     $id_pelanggaran    = mysqli_real_escape_string($koneksi, $_POST['id_pelanggaran']);
     $id_siswa          = mysqli_real_escape_string($koneksi, $_POST['id_siswa']);
     $tanggal_kejadian  = mysqli_real_escape_string($koneksi, $_POST['tanggal_kejadian']);
-    $deskripsi         = mysqli_real_escape_string($koneksi, $_POST['deskripsi']);
+    
+    // Trim untuk membersihkan spasi berlebih
+    $deskripsi         = trim($_POST['deskripsi']);
     
     $point_input       = $_POST['point'];
     $point             = (int) preg_replace('/[^0-9]/', '', $point_input);
@@ -22,19 +24,32 @@ if (isset($_POST['submit'])) {
     if (empty($id_pelanggaran) || empty($id_siswa) || empty($tanggal_kejadian) || empty($deskripsi) || empty($point_input) || empty($guru_piket)) {
         $pesan_error = "Semua kolom wajib diisi, kecuali Tindakan / Pembinaan!";
     } 
-    // 2. Validasi Point harus berupa angka positif
+    // 2. Validasi Deskripsi Pelanggaran (Mencegah input asal-asalan)
+    elseif (strlen($deskripsi) < 10) {
+        $pesan_error = "Deskripsi pelanggaran terlalu singkat! Minimal harus 10 karakter.";
+    }
+    elseif (count(explode(' ', preg_replace('/\s+/', ' ', $deskripsi))) < 2) {
+        $pesan_error = "Deskripsi pelanggaran tidak valid! Mohon berikan rincian yang jelas (minimal 2 kata).";
+    }
+    elseif (is_numeric($deskripsi)) {
+        $pesan_error = "Deskripsi pelanggaran tidak boleh hanya berisi angka!";
+    }
+    // 3. Validasi Point harus berupa angka positif
     elseif ($point <= 0) {
         $pesan_error = "Jumlah poin pelanggaran harus berupa angka yang valid (minimal 1)!";
     } 
-    // 3. Cek apakah ID Pelanggaran sudah terdaftar di database
+    // 4. Cek apakah ID Pelanggaran sudah terdaftar di database
     else {
+        // Amankan string deskripsi setelah lolos validasi
+        $deskripsi_aman = mysqli_real_escape_string($koneksi, $deskripsi);
+
         $cek_id = mysqli_query($koneksi, "SELECT * FROM catatan_pelanggaran WHERE id_pelanggaran = '$id_pelanggaran'");
         if (mysqli_num_rows($cek_id) > 0) {
             $pesan_error = "Gagal: ID Pelanggaran '$id_pelanggaran' sudah terdaftar di database!";
         } else {
             // Jika lolos semua validasi, lakukan proses INSERT
             $query = "INSERT INTO catatan_pelanggaran (id_pelanggaran, id_siswa, tanggal_kejadian, deskripsi, point, tindakan, guru_piket) 
-                      VALUES ('$id_pelanggaran', '$id_siswa', '$tanggal_kejadian', '$deskripsi', '$point', '$tindakan', '$guru_piket')";
+                      VALUES ('$id_pelanggaran', '$id_siswa', '$tanggal_kejadian', '$deskripsi_aman', '$point', '$tindakan', '$guru_piket')";
 
             if (mysqli_query($koneksi, $query)) {
                 echo "<script>alert('Catatan Pelanggaran Berhasil Ditambahkan!'); window.location='../views/index.php#catatan-pelanggaran';</script>";
@@ -89,7 +104,6 @@ if (isset($_POST['submit'])) {
                 <select name="id_siswa" required>
                     <option value="">-- Pilih Siswa --</option>
                     <?php 
-                    // Reset pointer query siswa agar dropdown terbaca dengan benar
                     mysqli_data_seek($siswa_list, 0);
                     while ($s = mysqli_fetch_assoc($siswa_list)): 
                         $selected = (isset($_POST['id_siswa']) && $_POST['id_siswa'] == $s['id_siswa']) ? 'selected' : '';
@@ -108,7 +122,8 @@ if (isset($_POST['submit'])) {
             
             <div class="form-group">
                 <label>Deskripsi Pelanggaran</label>
-                <textarea name="deskripsi" rows="3" required placeholder="Rincian pelanggaran yang dilakukan"><?= isset($_POST['deskripsi']) ? htmlspecialchars($_POST['deskripsi']) : ''; ?></textarea>
+                <!-- Tambahan minlength pada textarea untuk validasi browser -->
+                <textarea name="deskripsi" rows="3" required minlength="10" placeholder="Contoh: Terlambat datang ke sekolah lebih dari 30 menit"><?= isset($_POST['deskripsi']) ? htmlspecialchars($_POST['deskripsi']) : ''; ?></textarea>
             </div>
             
             <div class="form-group">

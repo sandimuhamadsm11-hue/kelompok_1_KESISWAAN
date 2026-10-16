@@ -7,7 +7,7 @@ $sukses = false;
 if (isset($_POST['submit'])) {
     // Ambil dan bersihkan data input
     $id_siswa = mysqli_real_escape_string($koneksi, $_POST['id_siswa']);
-    $nama_lengkap = mysqli_real_escape_string($koneksi, $_POST['nama_lengkap']);
+    $nama_lengkap = trim($_POST['nama_lengkap']); // Trim untuk menghapus spasi berlebih
     $jenis_kelamin = mysqli_real_escape_string($koneksi, $_POST['jenis_kelamin']);
     $tempat_tanggal_lahir = mysqli_real_escape_string($koneksi, $_POST['tanggal_lahir']);
     $kelas = mysqli_real_escape_string($koneksi, $_POST['kelas']);
@@ -18,19 +18,32 @@ if (isset($_POST['submit'])) {
     if (empty($id_siswa) || empty($nama_lengkap) || empty($jenis_kelamin) || empty($tempat_tanggal_lahir) || empty($kelas) || empty($jurusan)) {
         $pesan_error = "Semua kolom wajib diisi, kecuali No HP!";
     } 
-    // 2. Validasi Format No HP (jika diisi, harus angka dan panjang minimal 10-13 digit)
+    // 2. Validasi Nama Lengkap (Tidak boleh ngasal)
+    elseif (strlen($nama_lengkap) < 4) {
+        $pesan_error = "Nama lengkap terlalu pendek! Minimal harus 4 karakter.";
+    }
+    elseif (!preg_match("/^[a-zA-Z\s\.\']+$/", $nama_lengkap)) {
+        $pesan_error = "Format nama tidak valid! Nama lengkap hanya boleh berisi huruf, spasi, titik, atau tanda petik.";
+    }
+    elseif (count(explode(' ', preg_replace('/\s+/', ' ', $nama_lengkap))) < 2) {
+        $pesan_error = "Mohon masukkan nama lengkap yang benar (minimal terdiri dari 2 kata, nama depan dan belakang)!";
+    }
+    // 3. Validasi Format No HP (jika diisi, harus angka dan panjang minimal 10-13 digit)
     elseif (!empty($no_hp) && (!is_numeric($no_hp) || strlen($no_hp) < 10 || strlen($no_hp) > 13)) {
         $pesan_error = "Nomor HP tidak valid! Harus berupa angka dengan panjang antara 10 sampai 13 digit.";
     } 
-    // 3. Cek apakah ID Siswa / NISN sudah terdaftar di database
+    // 4. Cek apakah ID Siswa / NISN sudah terdaftar di database
     else {
+        // Amankan string untuk query SQL setelah divalidasi
+        $nama_lengkap_aman = mysqli_real_escape_string($koneksi, $nama_lengkap);
+        
         $cek_id = mysqli_query($koneksi, "SELECT * FROM data_siswa WHERE id_siswa = '$id_siswa'");
         if (mysqli_num_rows($cek_id) > 0) {
             $pesan_error = "Gagal: ID Siswa / NISN '$id_siswa' sudah terdaftar di database!";
         } else {
             // Jika lolos semua validasi, lakukan proses INSERT
             $query = "INSERT INTO data_siswa (id_siswa, nama_lengkap, jenis_kelamin, tempat_tanggal_lahir, kelas, jurusan, no_hp) 
-                      VALUES ('$id_siswa', '$nama_lengkap', '$jenis_kelamin', '$tempat_tanggal_lahir', '$kelas', '$jurusan', '$no_hp')";
+                      VALUES ('$id_siswa', '$nama_lengkap_aman', '$jenis_kelamin', '$tempat_tanggal_lahir', '$kelas', '$jurusan', '$no_hp')";
 
             if (mysqli_query($koneksi, $query)) {
                 echo "<script>alert('Data Siswa Berhasil Ditambahkan!'); window.location='../views/index.php#data-siswa';</script>";
@@ -51,7 +64,6 @@ if (isset($_POST['submit'])) {
     <title>Tambah Data Siswa - SMKN 1 MAJA</title>
     <link rel="stylesheet" href="../assets/style.css">
     <style>
-        /* Tambahan CSS sederhana untuk pesan error */
         .alert-error {
             background-color: #f8d7da;
             color: #721c24;
@@ -81,7 +93,8 @@ if (isset($_POST['submit'])) {
             </div>
             <div class="form-group">
                 <label>Nama Lengkap</label>
-                <input type="text" name="nama_lengkap" required placeholder="Nama Lengkap Siswa" value="<?= isset($_POST['nama_lengkap']) ? htmlspecialchars($_POST['nama_lengkap']) : ''; ?>">
+                <!-- Tambahan atribut minlength dan pattern agar validasi HTML5 ikut membantu -->
+                <input type="text" name="nama_lengkap" required minlength="4" pattern="[A-Za-z\s\.\']+" title="Masukkan nama lengkap minimal 2 kata menggunakan huruf." placeholder="Contoh: Sandi Muhamad" value="<?= isset($_POST['nama_lengkap']) ? htmlspecialchars($_POST['nama_lengkap']) : ''; ?>">
             </div>
             <div class="form-group">
                 <label>Jenis Kelamin</label>
@@ -101,7 +114,7 @@ if (isset($_POST['submit'])) {
             </div>
             <div class="form-group">
                 <label>Jurusan / Konsentrasi Keahlian</label>
-                <input type="text" name="jurusan" required placeholder="Contoh: Rekayasa Perangkat Lunak" value="<?= isset($_POST['jurusan']) ? htmlspecialchars($_POST['jurusan']) : ''; ?>">
+                <input type="text" name="jurusan" required placeholder="Contoh: RPL" value="<?= isset($_POST['jurusan']) ? htmlspecialchars($_POST['jurusan']) : ''; ?>">
             </div>
             <div class="form-group">
                 <label>No HP / WhatsApp</label>

@@ -11,7 +11,9 @@ if (isset($_POST['submit'])) {
     $id_siswa           = mysqli_real_escape_string($koneksi, $_POST['id_siswa']);
     $tanggal_prestasi   = mysqli_real_escape_string($koneksi, $_POST['tanggal_prestasi']);
     $jenis_prestasi     = mysqli_real_escape_string($koneksi, $_POST['jenis_prestasi']);
-    $nama_prestasi      = mysqli_real_escape_string($koneksi, $_POST['nama_prestasi']);
+    
+    // Trim untuk membersihkan spasi berlebih
+    $nama_prestasi      = trim($_POST['nama_prestasi']);
     
     $peringkat_input    = $_POST['peringkat'];
     $peringkat          = (int) preg_replace('/[^0-9]/', '', $peringkat_input);
@@ -22,19 +24,32 @@ if (isset($_POST['submit'])) {
     if (empty($id_prestasi) || empty($id_siswa) || empty($tanggal_prestasi) || empty($jenis_prestasi) || empty($nama_prestasi) || empty($peringkat_input)) {
         $pesan_error = "Semua kolom wajib diisi!";
     } 
-    // 2. Validasi Peringkat harus berupa angka positif
+    // 2. Validasi Nama Kejuaraan / Perlombaan (Mencegah input asal-asalan)
+    elseif (strlen($nama_prestasi) < 5) {
+        $pesan_error = "Nama kejuaraan terlalu pendek! Minimal harus 5 karakter.";
+    }
+    elseif (count(explode(' ', preg_replace('/\s+/', ' ', $nama_prestasi))) < 2) {
+        $pesan_error = "Nama kejuaraan tidak valid! Mohon masukkan nama kejuaraan yang benar (minimal terdiri dari 2 kata).";
+    }
+    elseif (is_numeric($nama_prestasi)) {
+        $pesan_error = "Nama kejuaraan tidak boleh hanya berisi angka!";
+    }
+    // 3. Validasi Peringkat harus berupa angka positif
     elseif ($peringkat <= 0) {
         $pesan_error = "Peringkat / Juara harus berupa angka yang valid (minimal 1)!";
     } 
-    // 3. Cek apakah ID Prestasi sudah terdaftar di database
+    // 4. Cek apakah ID Prestasi sudah terdaftar di database
     else {
+        // Amankan string nama prestasi setelah lolos validasi
+        $nama_prestasi_aman = mysqli_real_escape_string($koneksi, $nama_prestasi);
+
         $cek_id = mysqli_query($koneksi, "SELECT * FROM catatan_prestasi WHERE id_prestasi = '$id_prestasi'");
         if (mysqli_num_rows($cek_id) > 0) {
             $pesan_error = "Gagal: ID Prestasi '$id_prestasi' sudah terdaftar di database!";
         } else {
             // Jika lolos semua validasi, lakukan proses INSERT
             $query = "INSERT INTO catatan_prestasi (id_prestasi, id_siswa, tanggal_prestasi, jenis_prestasi, nama_prestasi, peringkat, penyelenggara) 
-                      VALUES ('$id_prestasi', '$id_siswa', '$tanggal_prestasi', '$jenis_prestasi', '$nama_prestasi', '$peringkat', '$penyelenggara')";
+                      VALUES ('$id_prestasi', '$id_siswa', '$tanggal_prestasi', '$jenis_prestasi', '$nama_prestasi_aman', '$peringkat', '$penyelenggara')";
 
             if (mysqli_query($koneksi, $query)) {
                 echo "<script>alert('Catatan Prestasi Berhasil Ditambahkan!'); window.location='../views/index.php#catatan-prestasi';</script>";
@@ -89,7 +104,6 @@ if (isset($_POST['submit'])) {
                 <select name="id_siswa" required>
                     <option value="">-- Pilih Siswa --</option>
                     <?php 
-                    // Reset pointer query siswa jika sebelumnya sudah terpakai
                     mysqli_data_seek($siswa_list, 0);
                     while ($s = mysqli_fetch_assoc($siswa_list)): 
                         $selected = (isset($_POST['id_siswa']) && $_POST['id_siswa'] == $s['id_siswa']) ? 'selected' : '';
@@ -119,7 +133,8 @@ if (isset($_POST['submit'])) {
             
             <div class="form-group">
                 <label>Nama Kejuaraan / Perlombaan</label>
-                <input type="text" name="nama_prestasi" required placeholder="Contoh: LKS Web Technologies Tingkat Provinsi" value="<?= isset($_POST['nama_prestasi']) ? htmlspecialchars($_POST['nama_prestasi']) : ''; ?>">
+                <!-- Tambahan minlength untuk HTML5 -->
+                <input type="text" name="nama_prestasi" required minlength="5" placeholder="Contoh: LKS Web Technologies Tingkat Provinsi" value="<?= isset($_POST['nama_prestasi']) ? htmlspecialchars($_POST['nama_prestasi']) : ''; ?>">
             </div>
             
             <div class="form-group">
