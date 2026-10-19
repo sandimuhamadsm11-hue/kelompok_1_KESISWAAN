@@ -1,5 +1,5 @@
 <?php
-include "../config/koneksi.php";
+include "config/koneksi.php";
 
 // Fetch Data dari Database
 $data_siswa       = mysqli_fetch_all(mysqli_query($koneksi, "SELECT * FROM data_siswa"), MYSQLI_ASSOC);
@@ -23,7 +23,7 @@ function format_tanggal($tanggal) {
     <!-- Font Awesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <!-- External CSS -->
-    <link rel="stylesheet" href="../assets/style2.css">
+    <link rel="stylesheet" href="assets/style2.css">
 </head>
 <body>
 
@@ -34,7 +34,7 @@ function format_tanggal($tanggal) {
     </div>
     <ul class="nav-links">
         <!-- Menu Navigasi Utama -->
-        <li><a href="login.php">Login</a></li>
+        <li><a href="views/login.php">Login</a></li>
         <li><a href="#beranda">Beranda</a></li>
         <li><a href="#siswa">Siswa</a></li>
         <li><a href="#ekskul">Ekskul</a></li>
@@ -269,6 +269,6 @@ function format_tanggal($tanggal) {
 
 
     <!-- External JavaScript File -->
-    <script src="../assets/script.js"></script>
+    <script src="assets/script.js"></script>
 </body>
 </html>
